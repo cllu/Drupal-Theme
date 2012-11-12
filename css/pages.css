@@ -72,12 +72,14 @@ body {
 }
 #site-name a:hover,
 #site-name a:focus {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 #site-slogan { /* The slogan (or tagline) of a website */
   margin: 0;
   font-size: 1em;
+  font-family: "freight-sans-pro",sans-serif;
+  color: #585858;
 }
 
 .region-header { /* Wrapper for any blocks placed in the header region */
@@ -91,11 +93,19 @@ body {
 #main {
 }
 
+#page-title {
+  border-bottom: 1px solid #E2E2E2;
+  padding: 40px 0 40px 40px;
+  font-family: "freight-sans-pro",sans-serif;
+}
+
 /*
  * Content
  */
 
 #content {
+  padding: 40px 0 40px 40px;
+  width: 80%;
 }
 
 .region-highlighted {
@@ -121,6 +131,18 @@ h2.title, /* Comment section heading */
 h2.comment-form, /* Comment form heading */
 h3.title { /* Comment title */
   margin: 0;
+}
+
+/* Table by chunliang */
+#main th, #main td {
+  border: 1px #AAA solid;
+  padding: 0.2em;
+}
+
+#main th {
+  color: #888;
+  background-color: #F2F2F2;
+  text-align: center;
 }
 
 tr.even { /* Some tables have rows marked even or odd. */
