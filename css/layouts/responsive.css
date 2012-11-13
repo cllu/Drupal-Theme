@@ -28,14 +28,14 @@
 @media all and (min-width: 630px) {
     #header {
         position: fixed;
-        width: 27%;
+        width: 23%;
         min-height: 100%;
         min-width: 240px;
         padding-left: 2%;
     }
     
     #main {
-        margin-left: 27%;
+        margin-left: 23%;
         min-width: 658px;
         position: relative;
         border-left: 1px solid #E3E3E3;
