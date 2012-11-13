@@ -44,6 +44,13 @@
     $(document).bind('keydown', 'alt+shift+d', function(){
         $('#edit-delete').click();
     });
+    // cancel the edit form and return to the page.
+    $(document).bind('keydown', 'alt+shift+c', function(){
+        current = window.location.href;
+        if (current.substr(-5) == '/edit') {
+            window.location = current.substr(0, current.length-5);
+        }
+    });
     
 
 
