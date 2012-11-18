@@ -22,6 +22,9 @@
     $(document).bind('keydown', 'alt+shift+n', function(){
         window.location = '/node/add/note';
     });
+    $(document).bind('keydown', 'alt+shift+t', function(){
+        window.location = '/node/add/diary';
+    });
 
     // login/logout
     $(document).bind('keydown', 'alt+shift+i', function(){

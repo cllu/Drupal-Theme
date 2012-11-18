@@ -254,3 +254,7 @@ span.field-label { /* The inline field label used by the Fences module */
 
 .region-bottom { /* Wrapper for any blocks placed in the page bottom region */
 }
+
+figure {
+  text-align: center;
+}
