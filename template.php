@@ -224,3 +224,18 @@ function mei_preprocess_block(&$variables, $hook) {
   //}
 }
 // */
+
+/*
+* Override filter.module's theme_filter_tips() function to disable tips display.
+*/
+function mei_filter_tips($variables) {
+  if ($variables['long']) {
+    // this is for page filter/tips
+    return theme_filter_tips($variables);
+  } else {
+    return '';
+  }
+}
+function mei_filter_tips_more_info() {
+  return '<p>' . l(t('Format tips'), 'filter/tips', array('attributes' => array('target' => '_blank'))) . '</p>';
+}
