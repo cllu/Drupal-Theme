@@ -142,3 +142,10 @@ form table .item-list ul {
 td.menu-disabled {
   background: #ccc;
 }
+
+/* from stackoverflow */
+textarea {
+  font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+  border: 1px solid #999;
+  font-size: 90%;
+}

@@ -225,9 +225,9 @@ function mei_preprocess_block(&$variables, $hook) {
 }
 // */
 
-/*
-* Override filter.module's theme_filter_tips() function to disable tips display.
-*/
+/**
+ * Override filter.module's theme_filter_tips() function to disable tips display.
+ */
 function mei_filter_tips($variables) {
   if ($variables['long']) {
     // this is for page filter/tips
