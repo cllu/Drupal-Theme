@@ -42,7 +42,7 @@
         $('#edit-preview').click();
     });
     $(document).bind('keydown', 'alt+shift+s', function(){
-        $('#edit-save').click();
+        $('#edit-submit').click();
     });
     $(document).bind('keydown', 'alt+shift+d', function(){
         $('#edit-delete').click();
@@ -53,6 +53,11 @@
         if (current.substr(-5) == '/edit') {
             window.location = current.substr(0, current.length-5);
         }
+    });
+
+    // dismiss the message
+    $(document).bind('keydown', 'esc', function(){
+        $('.messages').remove();
     });
     
 
