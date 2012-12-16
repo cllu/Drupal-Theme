@@ -303,3 +303,15 @@ pre {
   padding-bottom: 20px !ie7;
   /*max-height: 600px;*/
 }
+
+/* for blog page */
+#main .view-display-id-page_2 .views-row {
+  margin-bottom: 50px;
+}
+#main .view-display-id-page_2 .views-field-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+#main .view-display-id-page_2 .views-field-created {
+  font-size: 14px;
+}
