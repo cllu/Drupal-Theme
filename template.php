@@ -251,4 +251,20 @@ function mei_form_alter(&$form, $form_state, $form_id) {
     drupal_add_js(drupal_get_path('theme', 'mei') . '/js/Markdown.Editor.js' );
     drupal_add_js('jQuery(document).ready(function () { });', 'inline');
   }
+
+  // change search form
+  if ($form_id == 'search_block_form') {
+    unset($form['search_block_form']['#title']);
+    $form['search_block_form']['#title_display'] = 'invisible';
+    $form_default = t('Search');
+    $form['search_block_form']['#default_value'] = $form_default;
+    $form['actions']['submit'] = array(
+        '#type' => 'image_button',
+        '#src'  => drupal_get_path('theme', 'mei').'/images/search.png' );
+
+    $form['search_block_form']['#attributes'] = array(
+        'onblur'  => "if (this.value=='') {this.value='{$form_default}';}",
+        'onfocus' => "if (this.value='{$form_default}') {this.value='';}"
+    );
+  }
 }
