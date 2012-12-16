@@ -60,6 +60,10 @@
         $('.messages').remove();
     });
     
+    // search
+    $(document).bind('keydown', 'alt+shift+f', function(){
+        $('#edit-search-block-form--2').focus();
+    });
 
 
 })(jQuery, Drupal, this, this.document);
