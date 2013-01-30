@@ -57,7 +57,11 @@
 
     // dismiss the message
     $(document).bind('keydown', 'esc', function(){
-        $('.messages').remove();
+        if ( $('.messages').length ) {
+            $('.messages').remove();
+        } else {
+            $('#header').toggle();
+        }
     });
     
     // search

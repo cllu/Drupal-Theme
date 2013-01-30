@@ -97,6 +97,7 @@ body {
   border-bottom: 1px solid #E2E2E2;
   padding: 40px 0 40px 40px;
   font-family: "freight-sans-pro",sans-serif;
+  width: 65%;
 }
 
 /*
@@ -105,7 +106,7 @@ body {
 
 #content {
   padding: 40px 0 40px 40px;
-  width: 80%;
+  width: 65%;
 }
 
 .region-highlighted {
@@ -307,6 +308,16 @@ pre {
   width: 650px !ie7;
   padding-bottom: 20px !ie7;
   /*max-height: 600px;*/
+}
+
+/* fix GeShi Filter*/
+div.geshifilter {
+  margin: 0px;
+  padding: 0px;
+}
+
+div.geshifilter pre {
+  padding: 5px;
 }
 
 /* for blog page */

@@ -6,14 +6,21 @@
     width: 23%;
     min-height: 100%;
     min-width: 240px;
-    padding-left: 2%;
+    border-right: 1px solid #E3E3E3;
+}
+
+#header #name-and-slogan {
+    padding-left: 20px;
+}
+
+#heading #navigation {
+    padding-left: 20px;
 }
 
 #main {
     margin-left: 23%;
     min-width: 658px;
     position: relative;
-    border-left: 1px solid #E3E3E3;
     min-height: 900px;
 }
 #footer {
@@ -35,9 +42,13 @@
         padding: 0;
     }
     #header #name-and-slogan {
+        padding-left: none;
         margin-top: 30px;
         height: auto;
         float: none;
+    }
+    #header #navigation {
+        padding-left: none;
     }
     #header #navigation ul.menu {
         text-align: center;
