@@ -332,3 +332,8 @@ div.geshifilter pre {
 #main .view-display-id-page_2 .views-field-created {
   font-size: 14px;
 }
+
+.blog-meta {
+  color: gray;
+  font-size: 12px;
+}

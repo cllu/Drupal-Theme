@@ -98,20 +98,6 @@
 
     </div><!-- /#navigation -->
 
-    <?php
-      // Render the sidebars to see if there's anything in them.
-      $sidebar_first  = render($page['sidebar_first']);
-      $sidebar_second = render($page['sidebar_second']);
-    ?>
-
-    <?php if ($sidebar_first || $sidebar_second): ?>
-      <aside class="sidebars">
-        <?php print $sidebar_first; ?>
-        <?php print $sidebar_second; ?>
-      </aside><!-- /.sidebars -->
-    <?php endif; ?>
-
-
     <?php if ($secondary_menu): ?>
       <nav id="secondary-menu" role="navigation">
         <?php print theme('links__system_secondary_menu', array(
@@ -136,7 +122,9 @@
     <div id="page-title">
       <?php print render($title_prefix); ?>
       <?php if ($title): ?>
-        <h1 class="title"><?php print $title; ?></h1>
+        <h1 class="title"><?php print $title; ?>
+        <?php if ($node->private): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
+        </h1> 
       <?php endif; ?>
       <?php print render($title_suffix); ?>
     </div>

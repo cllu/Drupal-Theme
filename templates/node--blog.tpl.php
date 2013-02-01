@@ -85,30 +85,15 @@
 ?>
 <article class="node-<?php print $node->nid; ?> <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <?php if ($title_prefix || $title_suffix || $display_submitted || $unpublished || !$page && $title): ?>
-    <header>
-      <?php print render($title_prefix); ?>
-      <?php if (!$page && $title): ?>
-        <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
-      <?php endif; ?>
-      <?php print render($title_suffix); ?>
+  <div class="blog-meta">
+    Post on <?php print date('F m, Y', $created); ?> by <?php print $name; ?>
+  </div>
 
-      <?php if ($display_submitted): ?>
-          <?php print $user_picture; ?>
-          <?php print $submitted; ?>
-      <?php endif; ?>
-    </header>
-  <?php endif; ?>
-
+  <div class="blog-body">
   <?php
-    // We hide the comments and links now so that we can render them later.
-    hide($content['comments']);
-    hide($content['links']);
-    print render($content);
+    $body = field_view_value('node', $node, 'body', $body[0]);
+    print $body['#markup'];
   ?>
-
-  <?php print render($content['links']); ?>
-
-  <?php print render($content['comments']); ?>
+  </div>
 
 </article><!-- /.node -->
