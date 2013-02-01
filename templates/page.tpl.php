@@ -123,7 +123,7 @@
       <?php print render($title_prefix); ?>
       <?php if ($title): ?>
         <h1 class="title"><?php print $title; ?>
-        <?php if ($node->private): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
+        <?php if (isset($node) && ($node->private)): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
         </h1> 
       <?php endif; ?>
       <?php print render($title_suffix); ?>
@@ -131,10 +131,12 @@
 
     <div id="content" class="column" role="main">
       <?php print render($page['highlighted']); ?>
-      <?php print $breadcrumb; ?>
+      <?php if (!isset($node)): ?>
+        <?php print $breadcrumb; ?>
+      <?php endif; ?>
       <a id="main-content"></a>
       <?php print $messages; ?>
-      <?php #print render($tabs); ?>
+      <?php if (!isset($node)): print render($tabs); endif; ?>
       <?php print render($page['help']); ?>
       <?php if ($action_links): ?>
         <ul class="action-links"><?php print render($action_links); ?></ul>
