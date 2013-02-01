@@ -297,7 +297,7 @@ code {
   background-color: #EEE;
 }
 
-pre {
+pre, div.geshifilter pre {
   padding: 5px;
   font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
   font-size: 10pt;
@@ -307,6 +307,7 @@ pre {
   width: auto;
   width: 650px !ie7;
   padding-bottom: 20px !ie7;
+  border: 1px solid #ccc;
   /*max-height: 600px;*/
 }
 
@@ -314,10 +315,10 @@ pre {
 div.geshifilter {
   margin: 0px;
   padding: 0px;
+  border: none;
 }
 
 div.geshifilter pre {
-  padding: 5px;
 }
 
 /* for blog page */
