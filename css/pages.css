@@ -337,3 +337,12 @@ div.geshifilter pre {
   color: gray;
   font-size: 12px;
 }
+
+blockquote {
+  border-left: 10px solid #88ACDB;
+  padding-left: 20px;
+}
+
+blockquote cite {
+  color: #555;
+}
