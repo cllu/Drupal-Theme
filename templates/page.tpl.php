@@ -123,7 +123,7 @@
       <?php print render($title_prefix); ?>
       <?php if ($title): ?>
         <h1 class="title"><?php print $title; ?>
-        <?php if (isset($node) && ($node->private)): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
+        <?php if (isset($node) && property_exists($node, 'private') && ($node->private)): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
         </h1> 
       <?php endif; ?>
       <?php print render($title_suffix); ?>
