@@ -241,16 +241,10 @@ function mei_filter_tips_more_info() {
 }
 
 /**
- * Override hook_form_alter() to add markdown render
+ * Override hook_form_alter() 
  */
 function mei_form_alter(&$form, $form_state, $form_id) {
   //drupal_set_message("This is the form id : $form_id");
-  if (preg_match('/_node_form/', $form_id)) {
-    //drupal_set_message('we have found node form');
-    drupal_add_js(drupal_get_path('theme', 'mei') . '/js/Markdown.Converter.js' );
-    drupal_add_js(drupal_get_path('theme', 'mei') . '/js/Markdown.Editor.js' );
-    drupal_add_js('jQuery(document).ready(function () { });', 'inline');
-  }
 
   // change search form
   if ($form_id == 'search_block_form') {
