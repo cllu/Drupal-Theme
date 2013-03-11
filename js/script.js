@@ -58,7 +58,48 @@
     // dismiss the message
     $(document).bind('keydown', 'esc', function(){
         if ( $('.messages').length ) {
+            // dismiss the messages
             $('.messages').remove();
+        } else if ( $('#edit-title').length ) { 
+            // zen mode for writing
+            if ( $(".region-content").parent().attr('id') == "content" ){
+                $("<div/>", {id: 'edit-zone'}).appendTo(document.body);
+                $(".region-content").appendTo($("#edit-zone"));
+                $("<div/>", {id: 'showdown-preview'}).appendTo("#content");
+
+                //$.getScript('site/all/libraries/showdown/showdown.js', function(){
+                //    console.log("load performed")
+                //});
+                var converter = new Showdown.converter();
+                $(document).ready(function(){
+                    $("#showdown-preview").html(converter.makeHtml($("#edit-body textarea.text-full").val()));
+                });
+                $('#edit-body textarea.text-full').keyup(function () {
+                    $('#showdown-preview').html(converter.makeHtml($(this).val()));
+                });
+            }
+            // edit the node
+            if ( $("#header").css("margin-left") == "0px" ) {
+                 // fade in
+                $('header').animate({
+                    marginLeft: "-25%"
+                }, {
+                    step: function(now, fx) {
+                        $('#main').css("margin-left", (now+25)+"%");
+                    }
+                });
+           
+            } else {
+                // fade out
+                $('header').animate({
+                    marginLeft: "0%"
+                }, {
+                    step: function(now, fx) {
+                        $('#main').css("margin-left", (now+25)+"%");
+                    }
+                });
+               
+            }
         } else {
             $('#header').toggle();
         }
@@ -69,5 +110,15 @@
         $('#edit-search-block-form--2').focus();
     });
 
+
+    $(document).bind('keydown', 'ctrl+enter', function(){
+        $('header').animate({
+            marginLeft: "-25%"
+        }, {
+            step: function(now, fx) {
+                $('#main').css("margin-left", (now+25)+"%");
+            }
+        });
+    });
 
 })(jQuery, Drupal, this, this.document);

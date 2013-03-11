@@ -78,6 +78,7 @@ stylesheets[all][] = css/print.css
 
 scripts[] = js/jquery.hotkeys.js
 scripts[] = js/script.js
+scripts[] = js/showdown.js
 
 
 

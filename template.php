@@ -245,6 +245,12 @@ function mei_filter_tips_more_info() {
  */
 function mei_form_alter(&$form, $form_state, $form_id) {
   //drupal_set_message("This is the form id : $form_id");
+  if (preg_match('/_node_form/', $form_id)) {
+    //print_r($form);
+    //drupal_render($form);
+    //echo drupal_render(drupal_build_form($form_id, $form_state));
+    //drupal_exit();
+  }
 
   // change search form
   if ($form_id == 'search_block_form') {
@@ -261,4 +267,35 @@ function mei_form_alter(&$form, $form_state, $form_id) {
         'onfocus' => "if (this.value='{$form_default}') {this.value='';}"
     );
   }
+}
+
+
+/*
+ * add menu hook
+ */
+function mei_menu_alter(&$items) {
+  $items['node/%/edit/ajax'] = array(
+    'page callback' => 'mei_node_form_ajax',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK
+  );
+  return $items;
+}
+
+/*
+ * just return the node edit form
+ */
+function mei_node_form_ajax($nid) {
+  $node = node_load($nid);
+  module_load_include('inc', 'node', 'node.pages');
+  if (!isset($node->nid)) {
+    global $user;
+    $node->uid = $user->uid;
+    $node->name = $user->name;
+    $node->type = $node_type;
+    node_object_prepare($node);
+  }
+
+  echo drupal_render(drupal_get_form($node->type."_node_form", $node));
 }
