@@ -150,4 +150,7 @@
   <?php print render($page['footer']); ?>
 </div><!-- /#page -->
 
-<?php print render($page['bottom']); ?>
+<?php if (isset($node)): ?>
+<a id="node-edit-btn">Edit</a>
+<?php endif; ?>
+

@@ -60,45 +60,14 @@
         if ( $('.messages').length ) {
             // dismiss the messages
             $('.messages').remove();
-        } else if ( $('#edit-title').length ) { 
-            // zen mode for writing
-            if ( $(".region-content").parent().attr('id') == "content" ){
-                $("<div/>", {id: 'edit-zone'}).appendTo(document.body);
-                $(".region-content").appendTo($("#edit-zone"));
-                $("<div/>", {id: 'showdown-preview'}).appendTo("#content");
-
-                //$.getScript('site/all/libraries/showdown/showdown.js', function(){
-                //    console.log("load performed")
-                //});
-                var converter = new Showdown.converter();
-                $(document).ready(function(){
-                    $("#showdown-preview").html(converter.makeHtml($("#edit-body textarea.text-full").val()));
-                });
-                $('#edit-body textarea.text-full').keyup(function () {
-                    $('#showdown-preview').html(converter.makeHtml($(this).val()));
-                });
-            }
-            // edit the node
+        } else if ( $('#node-edit-panel').length ) { 
+           // edit the node
             if ( $("#header").css("margin-left") == "0px" ) {
                  // fade in
-                $('header').animate({
-                    marginLeft: "-25%"
-                }, {
-                    step: function(now, fx) {
-                        $('#main').css("margin-left", (now+25)+"%");
-                    }
-                });
-           
+                openEditPanel();
             } else {
                 // fade out
-                $('header').animate({
-                    marginLeft: "0%"
-                }, {
-                    step: function(now, fx) {
-                        $('#main').css("margin-left", (now+25)+"%");
-                    }
-                });
-               
+                closeEditPanel();
             }
         } else {
             $('#header').toggle();
@@ -120,5 +89,98 @@
             }
         });
     });
+
+    window.editNode = editNode;
+    window.closeEditPanel = closeEditPanel;
+    window.openEditPanel = openEditPanel;
+
+    $(document).ready(function() {
+        $("#node-edit-btn").click(function() {
+          if ($("#node-edit-panel").length) {
+            // if we have opened edit form, just reopen it
+            openEditPanel()
+          } else {
+            editNode();
+          }
+        });
+    });
+
+    function editNode(){
+
+        var converter = new Showdown.converter();
+        // load edit form to node-edit-form div
+        $.get($('link[rel=shortlink]')[0].href+'/edit/ajax', function(data){
+            
+            $("<div/>", {id: "node-edit-panel"}).appendTo(document.body);
+            
+            $(data).appendTo($("#node-edit-panel"));
+
+            // clear current content and add markdown-preview div
+            $("#content").html("");
+            $("<div/>", {id: "body-preview"}).appendTo($("#content"));
+
+            // fieldset collapsed
+            $("#node-edit-panel fieldset").addClass("collapsed");
+            $("#node-edit-panel fieldset").click(function(){$(this).toggleClass("collapsed")});
+
+            $("#body-preview").html(converter.makeHtml($("#edit-body textarea.text-full").val()));
+            $("#edit-title").keyup(function() {
+                $("#page-title h1").html($("#edit-title").val())
+            });
+            $('#edit-body textarea.text-full').keyup(function () {
+                $('#body-preview').html(converter.makeHtml($(this).val()));
+            });
+
+            openEditPanel();
+
+        });
+
+        // init showdown and mathjax to render textarea lively
+        //$("textarea.text-full").on("keyup", function () {
+            //body = $("textarea.text-full").val()
+            // strip math from body to prevent math being rendered by markdown
+            //body = replace_math(body);
+            // process by markdown engine
+            //body = markdown(body);
+            // restore latex code
+            //body = restore_math(body);
+            // procese by mathjax 
+            //$("body-preview").html(body);
+        //});
+
+        // slide left to edit
+    }
+
+    function openEditPanel() {
+        // slide in the edit panel
+        $('#header').animate({
+            marginLeft: "-25%"
+        }, {
+            step: function(now, fx) {
+                $('#main').css("margin-left", (now+25)+"%");
+                $('#node-edit-panel').css("right", (-now/25) * 510 -510 );
+            }
+        });
+    }
+
+    function closeEditPanel() {
+        // slide right
+        $('header').animate({
+            marginLeft: "0%"
+        }, {
+            step: function(now, fx) {
+                $('#main').css("margin-left", (now+25)+"%");
+                $('#node-edit-panel').css("right", (-now/25) * 510 -510 );
+            }
+        });
+    }
+
+    function saveNode() {
+        // slide right if necessary
+
+        // submit the form
+
+        // load the current server-side rendered body and update
+    }
 
 })(jQuery, Drupal, this, this.document);
