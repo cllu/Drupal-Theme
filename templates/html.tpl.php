@@ -51,6 +51,14 @@
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
   <?php print $scripts; ?>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      showProcessingMessages: false,
+      tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+    });
+  </script>
+  <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <?php print $page; ?>

@@ -115,6 +115,16 @@
             
             $(data).appendTo($("#node-edit-panel"));
 
+            $(window).resize(function(){
+              textarea = $('textarea.text-full');
+              editpanel = $('#node-edit-panel');
+              //extra = editpanel[0].scrollHeight - editpanel.height();
+              extra = $('#node-edit-panel form') - editpanel.height();
+              if (extra > 10) {
+                textarea.height(textarea.height() - extra );
+              }
+            });
+
             // clear current content and add markdown-preview div
             $("#content").html("");
             $("<div/>", {id: "body-preview"}).appendTo($("#content"));
@@ -123,12 +133,20 @@
             $("#node-edit-panel fieldset").addClass("collapsed");
             $("#node-edit-panel fieldset").click(function(){$(this).toggleClass("collapsed")});
 
-            $("#body-preview").html(converter.makeHtml($("#edit-body textarea.text-full").val()));
             $("#edit-title").keyup(function() {
                 $("#page-title h1").html($("#edit-title").val())
             });
+
+            // body-preview  using showdown
+            //$("#body-preview").html(converter.makeHtml($("#edit-body textarea.text-full").val()));
+            //$('#edit-body textarea.text-full').keyup(function () {
+            //    $('#body-preview').html(converter.makeHtml($(this).val()));
+            //});
+
+            $("#body-preview").html(Markdown($("#edit-body textarea.text-full").val()));
             $('#edit-body textarea.text-full').keyup(function () {
-                $('#body-preview').html(converter.makeHtml($(this).val()));
+                $('#body-preview').html(Markdown($(this).val()));
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, "body-preview"]);
             });
 
             openEditPanel();
