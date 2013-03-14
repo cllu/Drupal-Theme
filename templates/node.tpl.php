@@ -83,13 +83,14 @@
  * @see template_process()
  */
 ?>
-<article class="node-<?php print $node->nid; ?> <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<article class="node node-<?php print $node->nid; ?> <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <?php if ($title_prefix || $title_suffix || $display_submitted || !$page && $title): ?>
-    <header>
+    <header id="node-title">
       <?php print render($title_prefix); ?>
-      <?php if (!$page && $title): ?>
-        <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
+      <?php if ($title): ?>
+        <h1 class="title"><?php print $title; ?>
+        <?php if (isset($node) && property_exists($node, 'private') && ($node->private)): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
+        </h1> 
       <?php endif; ?>
       <?php print render($title_suffix); ?>
 
@@ -99,10 +100,9 @@
           <?php print $submitted; ?>
         </p>
       <?php endif; ?>
-
     </header>
-  <?php endif; ?>
 
+  <div class="node-content">
   <?php
     // We hide the comments and links now so that we can render them later.
     hide($content['comments']);
@@ -113,5 +113,6 @@
   <?php print render($content['links']); ?>
 
   <?php print render($content['comments']); ?>
+  </div>
 
 </article><!-- /.node -->

@@ -55,12 +55,12 @@ li a.active {
 
 #navigation ul.links, /* Main menu and secondary menu links */
 #navigation ul.menu { /* Menu block links */
-  text-align: left; /* LTR */
 }
 
 #navigation ul.links li,
 #navigation ul.menu li { /* A simple method to get navigation links to appear in one line. */
   padding: 0 10px 0 0; /* LTR */
+  list-style: none;
 }
 
 .region-navigation {

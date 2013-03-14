@@ -83,13 +83,19 @@
  * @see template_process()
  */
 ?>
-<article class="node-<?php print $node->nid; ?> <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<article class="node">
 
-  <div class="blog-meta">
-    Posted on <?php print date('F m, Y', $created); ?> by <?php print $name; ?>
+  <div class="node-meta">
+    Posted on <?php print date('F m, Y', $created); ?>
   </div>
 
-  <div class="blog-body">
+  <header class="node-title">
+    <h1 class="title"><?php print $title; ?>
+      <?php if (isset($node) && property_exists($node, 'private') && ($node->private)): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
+    </h1> 
+  </header>
+
+  <div class="node-body">
   <?php
     $body = field_view_value('node', $node, 'body', $body[0]);
     print $body['#markup'];

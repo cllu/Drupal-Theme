@@ -15,9 +15,14 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #f1f1f1;
+  color: #555;
 }
 
-#page {
+#wrapper {
+  margin: 0 auto;
+  padding-top: 80px;
+  max-width: 960px;
 }
 
 /*
@@ -25,6 +30,8 @@ body {
  */
 
 #header {
+  width: 250px;
+  text-align: right;
 }
 
 #logo { /* Wrapping link for logo */
@@ -37,14 +44,12 @@ body {
 }
 
 #name-and-slogan { /* Wrapper for website name and slogan */
-  margin-top: 100px;
   height: 100px;
-  float: left;
 }
 
 #site-name { /* The name of the website */
   margin: 0;
-  font-size: 2em;
+  font-size: 30px;
   line-height: 1.5em;
 }
 #site-name a:link,
@@ -73,13 +78,12 @@ body {
  */
 
 #main {
+  margin-left: 270px;
 }
 
 #page-title {
-  border-bottom: 1px solid #E2E2E2;
-  padding: 40px 0 40px 40px;
+  padding: 40px 0 40px 0px;
   font-family: "freight-sans-pro",sans-serif;
-  width: 65%;
 }
 
 /*
@@ -87,8 +91,7 @@ body {
  */
 
 #content {
-  padding: 40px 0 40px 40px;
-  width: 65%;
+  padding: 40px 0 40px 0px;
 }
 
 .region-highlighted {
@@ -315,10 +318,6 @@ div.geshifilter pre {
   font-size: 14px;
 }
 
-.blog-meta {
-  color: gray;
-  font-size: 12px;
-}
 
 blockquote {
   border-left: 10px solid #88ACDB;
@@ -372,4 +371,33 @@ blockquote cite {
 }
 #node-edit-panel .form-item {
   margin: 0;
+}
+
+
+#page, 
+.node {
+  background-color: white;
+  -webkit-box-shadow: 0 0 10px rgba( 0, 0, 0, 0.1 );
+  -moz-box-shadow: 0 0 10px rgba( 0, 0, 0, 0.1 );
+  box-shadow: 0 0 10px rgba( 0, 0, 0, 0.1 );
+  -webkit-border-radius: 3px;
+}
+#page-title,
+.node-title {
+  font-size: 14px;
+  padding: 10px 30px;
+}
+#page-meta, 
+.node-meta {
+  padding: 10px 30px;
+  color: gray;
+  font-size: 12px;
+  border-bottom: 1px solid #eee;
+}
+#page-content,
+.node-body {
+  padding: 0px 30px 10px 30px;
+}
+#disqus_thread {
+  padding: 0px 30px 10px 30px;
 }

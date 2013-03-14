@@ -70,7 +70,7 @@
  */
 ?>
 
-<div id="page">
+<div id="wrapper">
 
   <header id="header" role="banner">
 
@@ -119,31 +119,34 @@
   </header>
 
   <div id="main">
-    <div id="page-title">
-      <?php print render($title_prefix); ?>
-      <?php if ($title): ?>
-        <h1 class="title"><?php print $title; ?>
-        <?php if (isset($node) && property_exists($node, 'private') && ($node->private)): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
-        </h1> 
-      <?php endif; ?>
-      <?php print render($title_suffix); ?>
-    </div>
+    <?php if (!isset($node)): ?>
+    <div id="page">
+      <div id="page-title">
+        <?php print render($title_prefix); ?>
+        <?php if ($title): ?>
+          <h1 class="title"><?php print $title; ?>
+          <?php if (isset($node) && property_exists($node, 'private') && ($node->private)): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
+          </h1> 
+        <?php endif; ?>
+        <?php print render($title_suffix); ?>
+      </div>
 
-    <div id="content" class="column" role="main">
-      <?php print render($page['highlighted']); ?>
-      <?php if (!isset($node)): ?>
+      <div id="page-meta">
         <?php print $breadcrumb; ?>
-      <?php endif; ?>
-      <a id="main-content"></a>
-      <?php print $messages; ?>
-      <?php if (!isset($node)): print render($tabs); endif; ?>
-      <?php print render($page['help']); ?>
-      <?php if ($action_links): ?>
-        <ul class="action-links"><?php print render($action_links); ?></ul>
-      <?php endif; ?>
+        <?php print render($tabs); ?>
+        <?php print render($page['help']); ?>
+        <?php if ($action_links): ?>
+          <ul class="action-links"><?php print render($action_links); ?></ul>
+        <?php endif; ?>
+      </div>
+
+      <div id="page-content">
+        <?php print render($page['content']); ?>
+      </div>
+    </div><!-- /#page -->
+    <?php else: ?>
       <?php print render($page['content']); ?>
-      <?php print $feed_icons; ?>
-    </div><!-- /#content -->
+    <?php endif; ?>
 
   </div><!-- /#main -->
 
