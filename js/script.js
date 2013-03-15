@@ -62,11 +62,13 @@
             $('.messages').remove();
         } else if ( $('#node-edit-panel').length ) { 
            // edit the node
-            if ( $("#header").css("margin-left") == "0px" ) {
+            if ( window.originalMarginLeft && window.originalMarginLeft == parseInt($("#wrapper").css("margin-left")) ) {
                  // fade in
+                console.log("open edit panel");
                 openEditPanel();
             } else {
                 // fade out
+                console.log("close edit panel");
                 closeEditPanel();
             }
         } else {
@@ -107,7 +109,6 @@
 
     function editNode(){
 
-        var converter = new Showdown.converter();
         // load edit form to node-edit-form div
         $.get($('link[rel=shortlink]')[0].href+'/edit/ajax', function(data){
             
@@ -119,25 +120,27 @@
               textarea = $('textarea.text-full');
               editpanel = $('#node-edit-panel');
               //extra = editpanel[0].scrollHeight - editpanel.height();
-              extra = $('#node-edit-panel form') - editpanel.height();
-              if (extra > 10) {
+              extra = $('#node-edit-panel form').outerHeight() - editpanel.outerHeight();
+              //if (Math.abs(extra) > 10) {
                 textarea.height(textarea.height() - extra );
-              }
+              //}
             });
 
+
             // clear current content and add markdown-preview div
-            $("#content").html("");
-            $("<div/>", {id: "body-preview"}).appendTo($("#content"));
+            $(".node-body").html("");
+            $("<div/>", {id: "body-preview"}).appendTo($(".node-body"));
 
             // fieldset collapsed
             $("#node-edit-panel fieldset").addClass("collapsed");
             $("#node-edit-panel fieldset").click(function(){$(this).toggleClass("collapsed")});
 
             $("#edit-title").keyup(function() {
-                $("#page-title h1").html($("#edit-title").val())
+                $(".node-title h1").html($("#edit-title").val())
             });
 
             // body-preview  using showdown
+            //var converter = new Showdown.converter();
             //$("#body-preview").html(converter.makeHtml($("#edit-body textarea.text-full").val()));
             //$('#edit-body textarea.text-full').keyup(function () {
             //    $('#body-preview').html(converter.makeHtml($(this).val()));
@@ -150,7 +153,7 @@
             });
 
             openEditPanel();
-
+            $(window).resize();
         });
 
         // init showdown and mathjax to render textarea lively
@@ -171,26 +174,37 @@
 
     function openEditPanel() {
         // slide in the edit panel
-        $('#header').animate({
-            marginLeft: "-25%"
+        marginLeft = parseInt($("#wrapper").css("margin-left"), 10);
+        if (window.originalMarginLeft && marginLeft != window.originalMarginLeft) {
+            return 0;
+        }
+
+        window.originalMarginLeft = marginLeft;
+        window.collapsedMarginLeft = -250;
+
+        $("#wrapper").animate({
+            marginLeft: window.collapsedMarginLeft
         }, {
-            step: function(now, fx) {
-                $('#main').css("margin-left", (now+25)+"%");
-                $('#node-edit-panel').css("right", (-now/25) * 510 -510 );
+            step: function (now, fx) {
+                rate = (now - window.collapsedMarginLeft) / (window.originalMarginLeft - window.collapsedMarginLeft);
+                $("#node-edit-panel").css("right", - rate * 510);
             }
         });
+
     }
 
     function closeEditPanel() {
         // slide right
-        $('header').animate({
-            marginLeft: "0%"
+
+        $("#wrapper").animate({
+            marginLeft: window.originalMarginLeft
         }, {
-            step: function(now, fx) {
-                $('#main').css("margin-left", (now+25)+"%");
-                $('#node-edit-panel').css("right", (-now/25) * 510 -510 );
+            step: function (now, fx) {
+                rate = (now - window.collapsedMarginLeft) / (window.originalMarginLeft - window.collapsedMarginLeft);
+                $("#node-edit-panel").css("right", - rate * 510);
             }
         });
+
     }
 
     function saveNode() {

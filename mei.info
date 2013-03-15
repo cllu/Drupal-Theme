@@ -77,7 +77,6 @@ stylesheets[all][] = css/print.css
 ; Optionally add some JavaScripts to your theme.
 
 scripts[] = js/jquery.hotkeys.js
-scripts[] = js/showdown.js
 scripts[] = js/js-markdown-extra.js
 scripts[] = js/script.js
 

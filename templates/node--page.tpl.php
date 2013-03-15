@@ -85,6 +85,10 @@
 ?>
 <article class="node-<?php print $node->nid; ?> <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
+  <header class="node-title">
+    <h1><?php print $title; ?></h1>
+  </header>
+
   <div class="node-body">
   <?php
     $body = field_view_value('node', $node, 'body', $body[0]);
