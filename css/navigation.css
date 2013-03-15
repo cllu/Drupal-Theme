@@ -94,6 +94,15 @@ li a.active {
 .block-menu-block {
 }
 
+
+/*the following are necessary for me*/
+
+#navigation ul,
+#management ul{
+  list-style: none;
+  font-size: 12px;
+}
+
 #navigation a {
   font-family: proxima-nova, sans-serif;
   text-decoration: none;

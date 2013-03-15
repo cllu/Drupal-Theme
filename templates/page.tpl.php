@@ -92,33 +92,39 @@
       </hgroup><!-- /#name-and-slogan -->
     <?php endif; ?>
 
+    <div id="search">
+      <?php print $search_box; ?>
+    </div>
+
     <div id="navigation">
- 
-      <?php print render($page['navigation']); ?>
-
+      <ul>
+        <li><a href="/blog">Blog</a></li>    
+        <li><a href="/quote">Quote</a></li>    
+        <li><a href="/favorites">Favorites</a></li>    
+      </ul>
     </div><!-- /#navigation -->
-
-    <?php if ($secondary_menu): ?>
-      <nav id="secondary-menu" role="navigation">
-        <?php print theme('links__system_secondary_menu', array(
-          'links' => $secondary_menu,
-          'attributes' => array(
-            'class' => array('links', 'inline', 'clearfix'),
-          ),
-          'heading' => array(
-            'text' => $secondary_menu_heading,
-            'level' => 'h2',
-            'class' => array('element-invisible'),
-          ),
-        )); ?>
-      </nav>
+   
+   <?php if ($is_admin): ?>
+   <div id="management">
+    <ul>
+    <li>
+      <a id="node-add-btn">Add</a>
+      <ul>
+        <li><a href="/">Blog</a></li>
+        <li><a href="/">Diary</a></li>
+        <li><a href="/">Note</a></li>
+        <li><a href="/">Page</a></li>
+      </ul>
+    </li>
+    <?php if (isset($node)): ?><li><a id="node-edit-btn">Edit</a></li><?php endif; ?>
+    </ul>
+    </div>
     <?php endif; ?>
 
-    <?php print render($page['header']); ?>
-  
   </header>
 
   <div id="main">
+    <?php print $messages; ?>
     <?php if (!isset($node)): ?>
     <div id="page">
       <div id="page-title">
@@ -150,10 +156,6 @@
 
   </div><!-- /#main -->
 
-  <?php print render($page['footer']); ?>
 </div><!-- /#page -->
 
-<?php if (isset($node)): ?>
-<a id="node-edit-btn">Edit</a>
-<?php endif; ?>
 

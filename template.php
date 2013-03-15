@@ -146,11 +146,10 @@ function mei_preprocess_html(&$variables, $hook) {
  * @param $hook
  *   The name of the template being rendered ("page" in this case.)
  */
-/* -- Delete this line if you want to use this function
 function mei_preprocess_page(&$variables, $hook) {
-  $variables['sample_variable'] = t('Lorem ipsum.');
+  $search_box = drupal_render(drupal_get_form('search_form'));
+  $variables['search_box'] = $search_box; 
 }
-// */
 
 /**
  * Override or insert variables into the node templates.
@@ -252,23 +251,26 @@ function mei_form_alter(&$form, $form_state, $form_id) {
     //drupal_exit();
   }
 
-  // change search form
-  if ($form_id == 'search_block_form') {
-    unset($form['search_block_form']['#title']);
-    $form['search_block_form']['#title_display'] = 'invisible';
-    $form_default = t('Search');
-    $form['search_block_form']['#default_value'] = $form_default;
-    $form['actions']['submit'] = array(
-        '#type' => 'image_button',
-        '#src'  => drupal_get_path('theme', 'mei').'/images/search.png' );
-
-    $form['search_block_form']['#attributes'] = array(
-        'onblur'  => "if (this.value=='') {this.value='{$form_default}';}",
-        'onfocus' => "if (this.value='{$form_default}') {this.value='';}"
-    );
-  }
 }
 
+function mei_form_search_form_alter(&$form, $form_state, $form_id) {
+  #drupal_set_message("This is the form id : $form_id");
+  $form_default = t('Search');
+  // change search form
+  unset($form['basic']['keys']['#title']);
+  //$form['basic']['#title_display'] = 'invisible';
+  $form['basic']['keys']['#default_value'] = $form_default;
+  $form['basic']['keys']['#size'] = 12;
+  unset($form['basic']['submit']);
+  //$form['basic']['submit'] = array(
+  //    '#type' => 'image_button',
+  //    '#src'  => drupal_get_path('theme', 'mei').'/images/search.png' );
+
+  $form['basic']['keys']['#attributes'] = array(
+      'onblur'  => "if (this.value=='') {this.value='{$form_default}';}",
+      'onfocus' => "if (this.value='{$form_default}') {this.value='';}"
+  );
+}
 
 /*
  * add menu hook
