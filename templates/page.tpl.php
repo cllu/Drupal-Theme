@@ -110,10 +110,10 @@
     <li>
       <a id="node-add-btn">Add</a>
       <ul>
-        <li><a href="/">Blog</a></li>
-        <li><a href="/">Diary</a></li>
-        <li><a href="/">Note</a></li>
-        <li><a href="/">Page</a></li>
+        <li><a href="/node/add/blog">Blog</a></li>
+        <li><a href="/node/add/diary">Diary</a></li>
+        <li><a href="/node/add/note">Note</a></li>
+        <li><a href="/node/add/page">Page</a></li>
       </ul>
     </li>
     <?php if (isset($node)): ?><li><a id="node-edit-btn">Edit</a></li><?php endif; ?>
@@ -157,5 +157,4 @@
   </div><!-- /#main -->
 
 </div><!-- /#page -->
-
 

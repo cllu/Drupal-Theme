@@ -399,7 +399,7 @@ blockquote cite {
   border-bottom: 1px solid #eee;
 }
 #page-content,
-.node-body {
+.node-content {
   padding: 0px 30px 10px 30px;
 }
 #disqus_thread {

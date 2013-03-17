@@ -95,7 +95,7 @@
     </h1> 
   </header>
 
-  <div class="node-body">
+  <div class="node-content">
   <?php
     $body = field_view_value('node', $node, 'body', $body[0]);
     print $body['#markup'];

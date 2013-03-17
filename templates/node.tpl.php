@@ -85,7 +85,7 @@
 ?>
 <article class="node node-<?php print $node->nid; ?> <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-    <header id="node-title">
+    <header class="node-title">
       <?php print render($title_prefix); ?>
       <?php if ($title): ?>
         <h1 class="title"><?php print $title; ?>

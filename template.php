@@ -279,7 +279,7 @@ function mei_menu_alter(&$items) {
   $items['node/%/edit/ajax'] = array(
     'page callback' => 'mei_node_form_ajax',
     'page arguments' => array(1),
-    'access callback' => TRUE,
+    'access arguments' => array('administer content'), 
     'type' => MENU_CALLBACK
   );
   return $items;
