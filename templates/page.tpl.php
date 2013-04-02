@@ -116,7 +116,9 @@
         <li><a href="/node/add/page">Page</a></li>
       </ul>
     </li>
-    <?php if (isset($node)): ?><li><a id="node-edit-btn">Edit</a></li><?php endif; ?>
+    <?php if (isset($node)): ?>
+    <li><a href="/node/<?php print $node->nid; ?>" id="node-edit-btn">Edit</a></li>
+    <?php endif; ?>
     </ul>
     </div>
     <?php endif; ?>

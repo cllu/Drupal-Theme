@@ -54,6 +54,7 @@
   <link href="/<?php print $directory;?>/css/normalize.css" rel="stylesheet"/>
   <link href="/<?php print $directory;?>/css/style.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="/<?php print $directory;?>/css/print.css" media="print" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="//yandex.st/highlightjs/7.3/styles/default.min.css">
 
   <?php if ($is_admin): ?>
   <link href="/<?php print $directory;?>/css/admin.css" rel="stylesheet"/>

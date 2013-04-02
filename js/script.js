@@ -23,4 +23,5 @@
   ga('create', 'UA-36894915-2', 'chunliang.me');
   ga('send', 'pageview');
  
+  $.getScript("https://yandex.st/highlightjs/7.3/highlight.min.js");
 })(jQuery,this, this.document);
