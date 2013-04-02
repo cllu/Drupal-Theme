@@ -50,13 +50,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title><?php print $head_title; ?></title>
 
-  <link rel="stylesheet" href="/modules/system/system.base.css"/>
-  <link rel="stylesheet" href="/<?php print $directory;?>/css/normalize.css"/>
-  <link rel="stylesheet" href="/<?php print $directory;?>/css/style.css"/>
-  <link rel="stylesheet" href="/<?php print $directory;?>/css/print.css"/>
+  <link href="/modules/system/system.base.css" rel="stylesheet"/>
+  <link href="/<?php print $directory;?>/css/normalize.css" rel="stylesheet"/>
+  <link href="/<?php print $directory;?>/css/style.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/<?php print $directory;?>/css/print.css" media="print" rel="stylesheet" type="text/css" />
 
   <?php if ($is_admin): ?>
-  <link rel="stylesheet" href="/<?php print $directory;?>/css/admin.css"/>
+  <link href="/<?php print $directory;?>/css/admin.css" rel="stylesheet"/>
   <?php endif; ?>
 
 </head>
