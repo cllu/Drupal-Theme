@@ -10,7 +10,7 @@
 // wrapping it with an "anonymous closure". See:
 // - http://drupal.org/node/1446420
 // - http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth
-(function ($, Drupal, window, document, undefined) {
+(function ($, window, document, undefined) {
 
     // add keyboard shortcuts.
     $(document).bind('keydown', 'alt+shift+h', function(){
@@ -214,5 +214,5 @@
 
         // load the current server-side rendered body and update
     }
-})(jQuery, Drupal, this, this.document);
+})(jQuery, this, this.document);
 
