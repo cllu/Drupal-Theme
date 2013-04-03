@@ -50,14 +50,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title><?php print $head_title; ?></title>
 
-  <link href="/modules/system/system.base.css" rel="stylesheet"/>
-  <link href="/<?php print $directory;?>/css/normalize.css" rel="stylesheet"/>
-  <link href="/<?php print $directory;?>/css/style.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="/<?php print $directory;?>/css/print.css" media="print" rel="stylesheet" type="text/css" />
+  <link href="/<?php print $directory;?>/css/normalize.min.css" rel="stylesheet"/>
+  <link href="/<?php print $directory;?>/css/style.min.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="/<?php print $directory;?>/css/print.min.css" media="print" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="//yandex.st/highlightjs/7.3/styles/default.min.css">
 
   <?php if ($is_admin): ?>
-  <link href="/<?php print $directory;?>/css/admin.css" rel="stylesheet"/>
+  <link href="/<?php print $directory;?>/css/admin.min.css" rel="stylesheet"/>
   <?php endif; ?>
 
 </head>
@@ -66,12 +65,12 @@
   <?php print $page; ?>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/script.js" defer></script>
+  <script type="text/javascript" src="/<?php print $directory;?>/js/script.min.js" defer></script>
   
   <?php if ($is_admin): ?>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/jquery.hotkeys.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/js-markdown-extra.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/admin.js"></script>
+  <script type="text/javascript" src="/<?php print $directory;?>/js/jquery.hotkeys.min.js"></script>
+  <script type="text/javascript" src="/<?php print $directory;?>/js/js-markdown-extra.min.js"></script>
+  <script type="text/javascript" src="/<?php print $directory;?>/js/admin.min.js"></script>
   <?php endif; ?>
 
 </body>
