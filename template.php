@@ -249,7 +249,9 @@ function mei_form_alter(&$form, $form_state, $form_id) {
     unset($form['options']);
     unset($form['path']);
     unset($form['revision_information']);
-    $form['title']['#default_value'] = date('Y/m/d');
+    if ($form['title']['#default_value'] == '') {
+      $form['title']['#default_value'] = date('Y/m/d');
+    }
   }
   if (preg_match('/_node_form/', $form_id)) {
     //print_r($form);
