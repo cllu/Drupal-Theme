@@ -244,6 +244,13 @@ function mei_filter_tips_more_info() {
  */
 function mei_form_alter(&$form, $form_state, $form_id) {
   //drupal_set_message("This is the form id : $form_id");
+  if ($form_id == "diary_node_form") {
+    unset($form['author']);
+    unset($form['options']);
+    unset($form['path']);
+    unset($form['revision_information']);
+    $form['title']['#default_value'] = date('Y/m/d');
+  }
   if (preg_match('/_node_form/', $form_id)) {
     //print_r($form);
     //drupal_render($form);
