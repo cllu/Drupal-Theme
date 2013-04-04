@@ -93,7 +93,9 @@
     <?php endif; ?>
 
     <div id="search">
-      <?php print $search_box; ?>
+      <form class="search-form" action="/search/node" method="get" accept-charset="UTF-8">
+        <input onblur="if (this.value=='') {this.value='Search';}" onfocus="if (this.value='Search') {this.value='';}" type="text" id="edit-keys--2" name="keys" value="Search" size="12" maxlength="255" class="form-text">
+      </form>
     </div>
 
     <div id="navigation">

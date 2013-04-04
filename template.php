@@ -147,8 +147,6 @@ function mei_preprocess_html(&$variables, $hook) {
  *   The name of the template being rendered ("page" in this case.)
  */
 function mei_preprocess_page(&$variables, $hook) {
-  $search_box = drupal_render(drupal_get_form('search_form'));
-  $variables['search_box'] = $search_box; 
 }
 
 /**
