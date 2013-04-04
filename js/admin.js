@@ -36,7 +36,7 @@
 
     // node edit/preview/save
     $(document).bind('keydown', 'alt+shift+e', function(){
-        window.location = $('link[rel=shortlink]')[0].href+'/edit';
+        $('#node-edit-btn').click();
     });
     $(document).bind('keydown', 'alt+shift+p', function(){
         $('#edit-preview').click();
@@ -110,7 +110,7 @@
     function editNode(){
 
         // load edit form to node-edit-form div
-        $.get($('link[rel=shortlink]')[0].href+'/edit/ajax', function(data){
+        $.get($('#node-edit-btn')[0].href+'/ajax', function(data){
             
             $("<div/>", {id: "node-edit-panel"}).appendTo(document.body);
             

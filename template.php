@@ -309,4 +309,5 @@ function mei_node_form_ajax($nid) {
   }
 
   echo drupal_render(drupal_get_form($node->type."_node_form", $node));
+  drupal_exit();
 }

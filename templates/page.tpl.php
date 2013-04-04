@@ -117,7 +117,7 @@
       </ul>
     </li>
     <?php if (isset($node)): ?>
-    <li><a href="/node/<?php print $node->nid; ?>" id="node-edit-btn">Edit</a></li>
+    <li><a href="/node/<?php print $node->nid; ?>/edit" id="node-edit-btn">Edit</a></li>
     <?php endif; ?>
     </ul>
     </div>
