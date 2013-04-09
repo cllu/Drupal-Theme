@@ -139,6 +139,7 @@
                 editor = ace.edit("ace-editor");
                 editor.setTheme("ace/theme/tomorrow_night");
                 editor.getSession().setMode("ace/mode/markdown");
+                editor.getSession().setUseWrapMode(true);
 
                 // set initial value from textarea
                 editor.setValue($body.val());
