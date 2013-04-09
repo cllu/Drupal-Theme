@@ -104,6 +104,8 @@
           } else {
             editNode();
           }
+
+          return false;
         });
     });
 
@@ -116,20 +118,10 @@
             
             $(data).appendTo($("#node-edit-panel"));
 
-            $(window).resize(function(){
-              textarea = $('textarea.text-full');
-              editpanel = $('#node-edit-panel');
-              //extra = editpanel[0].scrollHeight - editpanel.height();
-              extra = $('#node-edit-panel form').outerHeight() - editpanel.outerHeight();
-              //if (Math.abs(extra) > 10) {
-                textarea.height(textarea.height() - extra );
-              //}
-            });
-
 
             // clear current content and add markdown-preview div
-            $(".node-body").html("");
-            $("<div/>", {id: "body-preview"}).appendTo($(".node-body"));
+            $(".node-content").html("");
+            $("<div/>", {id: "body-preview"}).appendTo($(".node-content"));
 
             // fieldset collapsed
             $("#node-edit-panel fieldset").addClass("collapsed");
@@ -138,6 +130,44 @@
             $("#edit-title").keyup(function() {
                 $(".node-title h1").html($("#edit-title").val())
             });
+            
+            $('<div/>', {id:"ace-editor"}).insertAfter($('.form-item-title'));
+            $body = $("#edit-body textarea.text-full");
+            $editor = $('#ace-editor');
+            // ace editor
+            $.getScript('//d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js', function() {
+                editor = ace.edit("ace-editor");
+                editor.setTheme("ace/theme/tomorrow_night");
+                editor.getSession().setMode("ace/mode/markdown");
+
+                // set initial value from textarea
+                editor.setValue($body.val());
+                $("#body-preview").html(Markdown(editor.getValue()));
+                editor.getSession().on('change', function(e) {
+                    // update textarea value
+                    $body.val(editor.getValue());
+                    // trigger the event so we can update the preview
+                    $('#body-preview').html(Markdown(editor.getValue()));
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, "body-preview"]);
+                });
+
+                // hide editor
+                $body.hide();
+                $('#ace-editor').css('position', 'relative');
+                $('#ace-editor').css('height', '100px');
+                // resize editor
+                $(window).resize(function(){
+                    editpanel = $('#node-edit-panel');
+                    //extra = editpanel[0].scrollHeight - editpanel.height();
+                    extra = $('#node-edit-panel form').outerHeight() - editpanel.outerHeight();
+                    //if (Math.abs(extra) > 10) {
+                    $editor.height($editor.height() - extra );
+                    //}
+                });
+
+                $(window).resize();
+
+            })
 
             // body-preview  using showdown
             //var converter = new Showdown.converter();
@@ -146,14 +176,8 @@
             //    $('#body-preview').html(converter.makeHtml($(this).val()));
             //});
 
-            $("#body-preview").html(Markdown($("#edit-body textarea.text-full").val()));
-            $('#edit-body textarea.text-full').keyup(function () {
-                $('#body-preview').html(Markdown($(this).val()));
-                MathJax.Hub.Queue(["Typeset", MathJax.Hub, "body-preview"]);
-            });
-
+            
             openEditPanel();
-            $(window).resize();
         });
 
         // init showdown and mathjax to render textarea lively

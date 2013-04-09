@@ -242,6 +242,10 @@ function mei_filter_tips_more_info() {
  */
 function mei_form_alter(&$form, $form_state, $form_id) {
   //drupal_set_message("This is the form id : $form_id");
+  if ($form_id == "note_node_form") {
+    unset($form['author']);
+    unset($form['options']);
+  }
   if ($form_id == "diary_node_form") {
     unset($form['author']);
     unset($form['options']);

@@ -682,3 +682,25 @@ fieldset.vertical-tabs-pane fieldset legend {
 .filter-wrapper {
   display: none;
 }
+
+
+/**
+ * Collapsible fieldsets.
+ *
+ * @see collapse.js
+ */
+fieldset.collapsed {
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  height: 1em;
+}
+fieldset.collapsed .fieldset-wrapper {
+  display: none;
+}
+fieldset.collapsible {
+  position: relative;
+}
+fieldset.collapsible .fieldset-legend {
+  display: block;
+}
