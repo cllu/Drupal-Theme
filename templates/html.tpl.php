@@ -69,7 +69,8 @@
   
   <?php if ($is_admin): ?>
   <script type="text/javascript" src="/<?php print $directory;?>/js/jquery.hotkeys.min.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/js-markdown-extra.min.js"></script>
+  <script type="text/javascript" src="/<?php print $directory;?>/js/Markdown.Converter.js"></script>
+  <script type="text/javascript" src="/<?php print $directory;?>/js/Markdown.Extra.js"></script>
   <script type="text/javascript" src="/<?php print $directory;?>/js/admin.min.js"></script>
   <?php endif; ?>
 

@@ -143,13 +143,15 @@
 
                 // set initial value from textarea
                 editor.setValue($body.val());
-                $("#body-preview").html(Markdown(editor.getValue()));
+                markdown = new Markdown.Converter();
+                Markdown.Extra.init(markdown);
+                $("#body-preview").html(markdown.makeHtml(editor.getValue()));
                 editor.getSession().on('change', function(e) {
                     // update textarea value
                     $body.val(editor.getValue());
                     // trigger the event so we can update the preview
-                    $('#body-preview').html(Markdown(editor.getValue()));
-                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, "body-preview"]);
+                    $('#body-preview').html(markdown.makeHtml(editor.getValue()));
+                    //MathJax.Hub.Queue(["Typeset", MathJax.Hub, "body-preview"]);
                 });
 
                 // hide editor
