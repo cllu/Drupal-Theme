@@ -86,7 +86,7 @@
 <article class="node">
 
   <div class="node-meta">
-    Posted on <?php print date('F m, Y', $created); ?>
+    Posted on <?php print date('F j, Y', $created); ?>
   </div>
 
   <header class="node-title">

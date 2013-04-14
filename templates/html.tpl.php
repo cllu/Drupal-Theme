@@ -53,10 +53,10 @@
   <link href="/<?php print $directory;?>/css/normalize.min.css" rel="stylesheet"/>
   <link href="/<?php print $directory;?>/css/style.min.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="/<?php print $directory;?>/css/print.min.css" media="print" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="//yandex.st/highlightjs/7.3/styles/default.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" />
 
   <?php if ($is_admin): ?>
-  <link href="/<?php print $directory;?>/css/admin.min.css" rel="stylesheet"/>
+  <link href="/<?php print $directory;?>/css/admin.css" rel="stylesheet"/>
   <?php endif; ?>
 
 </head>
@@ -64,14 +64,15 @@
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <?php print $page; ?>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="/<?php print $directory;?>/js/script.min.js" defer></script>
   
   <?php if ($is_admin): ?>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/<?php print $directory;?>/js/jquery.hotkeys.min.js"></script>
   <script type="text/javascript" src="/<?php print $directory;?>/js/Markdown.Converter.js"></script>
   <script type="text/javascript" src="/<?php print $directory;?>/js/Markdown.Extra.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/admin.min.js"></script>
+  <script type="text/javascript" src="/<?php print $directory;?>/js/admin.js"></script>
   <?php endif; ?>
 
 </body>

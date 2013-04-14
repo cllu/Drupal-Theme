@@ -116,7 +116,26 @@
             
             $("<div/>", {id: "node-edit-panel"}).appendTo(document.body);
             
+            $('<div />', {id: 'dragger'}).appendTo($('#node-edit-panel'));
             $(data).appendTo($("#node-edit-panel"));
+
+            // dragger
+            $('#dragger').on('mousedown', function(e) {
+                var $dragable = $(this).parent(),
+                    startWidth = $dragable.width(),
+                    pX = e.pageX;
+                
+                $(document).on('mouseup', function(e) {
+                    $(document).off('mouseup').off('mousemove');
+                });
+                
+                $(document).on('mousemove', function(me) {
+                    var mx = (me.pageX - pX);
+                    $dragable.css({
+                        width: startWidth - mx
+                    });
+                });
+            });
 
 
             // clear current content and add markdown-preview div
@@ -125,7 +144,11 @@
 
             // fieldset collapsed
             $("#node-edit-panel fieldset").addClass("collapsed");
-            $("#node-edit-panel fieldset").click(function(){$(this).toggleClass("collapsed")});
+            $("#node-edit-panel fieldset legend").click(function(){
+                $(this).parent().toggleClass("collapsed"); 
+                $(window).resize();
+                $('#ace-editor').resize();
+            });
 
             $("#edit-title").keyup(function() {
                 $(".node-title h1").html($("#edit-title").val())
@@ -152,6 +175,7 @@
                     // trigger the event so we can update the preview
                     $('#body-preview').html(markdown.makeHtml(editor.getValue()));
                     //MathJax.Hub.Queue(["Typeset", MathJax.Hub, "body-preview"]);
+                    $('#body-preview pre code').each(function(i, e) {hljs.highlightBlock(e)});
                 });
 
                 // hide editor
@@ -171,33 +195,11 @@
                 $(window).resize();
 
             })
-
-            // body-preview  using showdown
-            //var converter = new Showdown.converter();
-            //$("#body-preview").html(converter.makeHtml($("#edit-body textarea.text-full").val()));
-            //$('#edit-body textarea.text-full').keyup(function () {
-            //    $('#body-preview').html(converter.makeHtml($(this).val()));
-            //});
-
             
             openEditPanel();
         });
 
-        // init showdown and mathjax to render textarea lively
-        //$("textarea.text-full").on("keyup", function () {
-            //body = $("textarea.text-full").val()
-            // strip math from body to prevent math being rendered by markdown
-            //body = replace_math(body);
-            // process by markdown engine
-            //body = markdown(body);
-            // restore latex code
-            //body = restore_math(body);
-            // procese by mathjax 
-            //$("body-preview").html(body);
-        //});
-
-        // slide left to edit
-    }
+    } // end of editNote()
 
     function openEditPanel() {
         // slide in the edit panel
@@ -241,5 +243,6 @@
 
         // load the current server-side rendered body and update
     }
+
 })(jQuery, this, this.document);
 

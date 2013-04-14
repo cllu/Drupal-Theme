@@ -30,5 +30,7 @@
   ga('send', 'pageview');
  
   // syntax highlighter
-  $.getScript("https://yandex.st/highlightjs/7.3/highlight.min.js");
+  $.getScript("//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js", function() {
+    $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+  });
 })(jQuery,this, this.document);
