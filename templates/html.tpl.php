@@ -57,6 +57,9 @@
 
   <?php if ($is_admin): ?>
   <link href="/<?php print $directory;?>/css/admin.css" rel="stylesheet"/>
+  <link href="/<?php print drupal_get_path('module', 'typogrify')?>/typogrify.css" />
+  <?php print $scripts;?>
+  <?php print $styles;?>
   <?php endif; ?>
 
 </head>
@@ -68,10 +71,10 @@
   <script type="text/javascript" src="/<?php print $directory;?>/js/script.min.js" defer></script>
   
   <?php if ($is_admin): ?>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/<?php print $directory;?>/js/jquery.hotkeys.min.js"></script>
   <script type="text/javascript" src="/<?php print $directory;?>/js/Markdown.Converter.js"></script>
   <script type="text/javascript" src="/<?php print $directory;?>/js/Markdown.Extra.js"></script>
+  <script type="text/javascript" src="/<?php print $directory;?>/js/sisyphus.js"></script>
   <script type="text/javascript" src="/<?php print $directory;?>/js/admin.js"></script>
   <?php endif; ?>
 

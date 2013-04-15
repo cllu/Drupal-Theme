@@ -51,7 +51,6 @@ stylesheets[all][] = css/print.css
 ; Optionally add some JavaScripts to your theme.
 
 scripts[] = js/jquery.hotkeys.js
-scripts[] = js/js-markdown-extra.js
 scripts[] = js/script.js
 
 ; This section lists the regions defined in Zen's default page.tpl.php and

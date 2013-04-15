@@ -243,14 +243,14 @@ function mei_filter_tips_more_info() {
 function mei_form_alter(&$form, $form_state, $form_id) {
   //drupal_set_message("This is the form id : $form_id");
   if ($form_id == "note_node_form") {
-    unset($form['author']);
-    unset($form['options']);
+    //unset($form['author']);
+    //unset($form['options']);
   }
   if ($form_id == "diary_node_form") {
-    unset($form['author']);
-    unset($form['options']);
-    unset($form['path']);
-    unset($form['revision_information']);
+    //unset($form['author']);
+    //unset($form['options']);
+    //unset($form['path']);
+    //unset($form['revision_information']);
     if ($form['title']['#default_value'] == '') {
       $form['title']['#default_value'] = date('Y/m/d');
     }
@@ -299,17 +299,20 @@ function mei_menu_alter(&$items) {
 /*
  * just return the node edit form
  */
-function mei_node_form_ajax($nid) {
-  $node = node_load($nid);
+function mei_node_form_ajax($nid_or_type) {
   module_load_include('inc', 'node', 'node.pages');
-  if (!isset($node->nid)) {
+  if (is_numeric($nid_or_type)) {
+    $node = node_load($nid_or_type);
+  } else {
     global $user;
+    $node = new stdClass();
     $node->uid = $user->uid;
     $node->name = $user->name;
-    $node->type = $node_type;
+    $node->type = $nid_or_type;
     node_object_prepare($node);
   }
 
   echo drupal_render(drupal_get_form($node->type."_node_form", $node));
   drupal_exit();
 }
+

@@ -97,27 +97,35 @@
     window.openEditPanel = openEditPanel;
 
     $(document).ready(function() {
-        $("#node-edit-btn").click(function() {
+        $("a.edit-node").click(function() {
           if ($("#node-edit-panel").length) {
             // if we have opened edit form, just reopen it
-            openEditPanel()
+            openEditPanel();
           } else {
-            editNode();
+            editNode(this.href + '/ajax');
           }
-
           return false;
         });
+
+        $('a.new-node').click(function() {
+            node_type = this.href.substring(this.href.lastIndexOf('/')+1);
+            editNode('/node/'+node_type+'/edit/ajax');
+            return false;  
+        })
     });
 
-    function editNode(){
+    function editNode(link){
 
         // load edit form to node-edit-form div
-        $.get($('#node-edit-btn')[0].href+'/ajax', function(data){
+        $.get(link, function(data){
             
             $("<div/>", {id: "node-edit-panel"}).appendTo(document.body);
             
-            $('<div />', {id: 'dragger'}).appendTo($('#node-edit-panel'));
+            $('<div/>', {id: 'dragger'}).appendTo($('#node-edit-panel'));
             $(data).appendTo($("#node-edit-panel"));
+
+            // autosave
+            enableFormAutoSave();
 
             // dragger
             $('#dragger').on('mousedown', function(e) {
@@ -177,6 +185,8 @@
                     //MathJax.Hub.Queue(["Typeset", MathJax.Hub, "body-preview"]);
                     $('#body-preview pre code').each(function(i, e) {hljs.highlightBlock(e)});
                 });
+
+                editor.clearSelection();
 
                 // hide editor
                 $body.hide();
@@ -243,6 +253,21 @@
 
         // load the current server-side rendered body and update
     }
+
+
+            $("fieldset legend").click(function(){
+                $(this).parent().toggleClass("collapsed"); 
+            });
+
+    function enableFormAutoSave() {
+        $('.node-form').sisyphus({
+            locationBased: true,
+            timeout: 10,
+            onSave: function() {console.log('autosave succeed');}    
+        });
+    }
+
+    enableFormAutoSave();
 
 })(jQuery, this, this.document);
 
