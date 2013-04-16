@@ -101,7 +101,6 @@
     <div id="navigation">
       <ul>
         <li><a href="/blog">Blog</a></li>    
-        <li><a href="/quote">Quote</a></li>    
         <li><a href="/favorites">Favorites</a></li>    
       </ul>
     </div><!-- /#navigation -->
@@ -109,6 +108,7 @@
    <?php if ($is_admin): ?>
    <div id="management">
     <ul>
+    <li><a href="/status">Status</a></li>    
     <li>
       <a id="node-add-btn">Add</a>
       <ul>

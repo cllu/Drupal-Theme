@@ -3,19 +3,25 @@
   $('#header').css('opacity', '0.4');
   $('#header').mouseenter(function(){$(this).animate({opacity: 1}); }).mouseleave(function(){$(this).animate({opacity: 0.4}); });
   
+  $.ajaxSetup({
+      cache: true
+  });
+
   // MathJax
   $.getScript("https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?delayStartupUntil=configured", function() {
   
     MathJax.Hub.Config({
       config: ["MMLorHTML.js"],
       jax: ["input/TeX","output/HTML-CSS","output/NativeMML"],
-      extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"],
+      extensions: ["tex2jax.js","MathMenu.js"],
       TeX: {
         extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
       },
       messageStyle: "none",
       showProcessingMessages: false,
-      tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+      tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] },
+      // use \$ to represent a literral dollar sign
+      processEscapes: true,
     });
 
     MathJax.Hub.Configured();
@@ -33,4 +39,5 @@
   $.getScript("//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js", function() {
     $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
   });
+
 })(jQuery,this, this.document);
