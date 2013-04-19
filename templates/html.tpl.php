@@ -65,24 +65,6 @@
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <?php print $page; ?>
 
-  <script type="text/javascript">
-  // Add a script element as a child of the body
-  function downloadJSAtOnload() {
-    var element = document.createElement("script");
-    element.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js";
-    document.body.appendChild(element);
-    var element = document.createElement("script");
-    element.src = "/assets/packed.js";
-    document.body.appendChild(element);
-  }
-  // Check for browser support of event handling capability
-  if (window.addEventListener)
-    window.addEventListener("load", downloadJSAtOnload, false);
-  else if (window.attachEvent)
-    window.attachEvent("onload", downloadJSAtOnload);
-  else window.onload = downloadJSAtOnload;
-  </script>
-
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       config: ["MMLorHTML.js"],
@@ -97,6 +79,24 @@
       // use \$ to represent a literral dollar sign
       processEscapes: true,
     });
+  </script>
+
+  <script type="text/javascript">
+    // Add a script element as a child of the body
+    function downloadJSAtOnload() {
+      var element = document.createElement("script");
+      element.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js";
+      document.body.appendChild(element);
+      var element = document.createElement("script");
+      element.src = "/assets/packed.js";
+      document.body.appendChild(element);
+    }
+    // Check for browser support of event handling capability
+    if (window.addEventListener)
+      window.addEventListener("load", downloadJSAtOnload, false);
+    else if (window.attachEvent)
+      window.attachEvent("onload", downloadJSAtOnload);
+    else window.onload = downloadJSAtOnload;
   </script>
 
 </body>
