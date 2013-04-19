@@ -50,14 +50,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title><?php print $head_title; ?></title>
 
-  <link href="/<?php print $directory;?>/css/normalize.min.css" rel="stylesheet"/>
-  <link href="/<?php print $directory;?>/css/style.min.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="/<?php print $directory;?>/css/print.min.css" media="print" rel="stylesheet" type="text/css" />
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+
+  <link href="/assets/packed.css" rel="stylesheet"/>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" />
 
-  <?php if ($is_admin): ?>
-  <link href="/<?php print $directory;?>/css/admin.css" rel="stylesheet"/>
-  <link href="/<?php print drupal_get_path('module', 'typogrify')?>/typogrify.css" />
+  <?php if ($is_admin && !$static_page): ?>
   <?php print $scripts;?>
   <?php print $styles;?>
   <?php endif; ?>
@@ -67,16 +65,39 @@
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <?php print $page; ?>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/script.min.js" defer></script>
-  
-  <?php if ($is_admin): ?>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/jquery.hotkeys.min.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/Markdown.Converter.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/Markdown.Extra.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/sisyphus.js"></script>
-  <script type="text/javascript" src="/<?php print $directory;?>/js/admin.js"></script>
-  <?php endif; ?>
+  <script type="text/javascript">
+  // Add a script element as a child of the body
+  function downloadJSAtOnload() {
+    var element = document.createElement("script");
+    element.src = "//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js";
+    document.body.appendChild(element);
+    var element = document.createElement("script");
+    element.src = "/assets/packed.js";
+    document.body.appendChild(element);
+  }
+  // Check for browser support of event handling capability
+  if (window.addEventListener)
+    window.addEventListener("load", downloadJSAtOnload, false);
+  else if (window.attachEvent)
+    window.attachEvent("onload", downloadJSAtOnload);
+  else window.onload = downloadJSAtOnload;
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      config: ["MMLorHTML.js"],
+      jax: ["input/TeX","output/HTML-CSS","output/NativeMML"],
+      extensions: ["tex2jax.js","MathMenu.js"],
+      TeX: {
+        extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+      },
+      messageStyle: "none",
+      showProcessingMessages: false,
+      tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] },
+      // use \$ to represent a literral dollar sign
+      processEscapes: true,
+    });
+  </script>
 
 </body>
 

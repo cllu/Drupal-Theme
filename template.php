@@ -128,9 +128,8 @@ function mei_preprocess_maintenance_page(&$variables, $hook) {
  * @param $hook
  *   The name of the template being rendered ("html" in this case.)
  */
-/* -- Delete this line if you want to use this function
 function mei_preprocess_html(&$variables, $hook) {
-  $variables['sample_variable'] = t('Lorem ipsum.');
+  $variables['static_page'] = variable_get('static_page', false);
 
   // The body tag's classes are controlled by the $classes_array variable. To
   // remove a class from $classes_array, use array_diff().
@@ -147,6 +146,7 @@ function mei_preprocess_html(&$variables, $hook) {
  *   The name of the template being rendered ("page" in this case.)
  */
 function mei_preprocess_page(&$variables, $hook) {
+  $variables['static_page'] = variable_get('static_page', false);
 }
 
 /**
@@ -281,38 +281,5 @@ function mei_form_search_form_alter(&$form, $form_state, $form_id) {
       'onblur'  => "if (this.value=='') {this.value='{$form_default}';}",
       'onfocus' => "if (this.value='{$form_default}') {this.value='';}"
   );
-}
-
-/*
- * add menu hook
- */
-function mei_menu_alter(&$items) {
-  $items['node/%/edit/ajax'] = array(
-    'page callback' => 'mei_node_form_ajax',
-    'page arguments' => array(1),
-    'access arguments' => array('administer content'), 
-    'type' => MENU_CALLBACK
-  );
-  return $items;
-}
-
-/*
- * just return the node edit form
- */
-function mei_node_form_ajax($nid_or_type) {
-  module_load_include('inc', 'node', 'node.pages');
-  if (is_numeric($nid_or_type)) {
-    $node = node_load($nid_or_type);
-  } else {
-    global $user;
-    $node = new stdClass();
-    $node->uid = $user->uid;
-    $node->name = $user->name;
-    $node->type = $nid_or_type;
-    node_object_prepare($node);
-  }
-
-  echo drupal_render(drupal_get_form($node->type."_node_form", $node));
-  drupal_exit();
 }
 

@@ -473,3 +473,7 @@ blockquote cite {
   border: 1px solid #ddd;
   color: #888;
 }
+
+.element-invisible {
+  display:none;    
+}

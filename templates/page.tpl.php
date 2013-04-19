@@ -92,20 +92,23 @@
       </hgroup><!-- /#name-and-slogan -->
     <?php endif; ?>
 
+    <?php if ($is_admin && !$static_page): ?>
     <div id="search">
       <form class="search-form" action="/search/node" method="get" accept-charset="UTF-8">
         <input onblur="if (this.value=='') {this.value='Search';}" onfocus="if (this.value='Search') {this.value='';}" type="text" id="edit-keys--2" name="keys" value="Search" size="12" maxlength="255" class="form-text">
       </form>
     </div>
+    <?php endif; ?>
 
     <div id="navigation">
       <ul>
+        <li><a href="/home">Home</a></li>    
         <li><a href="/blog">Blog</a></li>    
         <li><a href="/favorites">Favorites</a></li>    
       </ul>
     </div><!-- /#navigation -->
    
-   <?php if ($is_admin): ?>
+   <?php if ($is_admin && !$static_page): ?>
    <div id="management">
     <ul>
     <li><a href="/status">Status</a></li>    
@@ -129,7 +132,7 @@
 
   <div id="main">
     <?php print $messages; ?>
-    <?php if (!isset($node)): ?>
+    <?php if (!isset($node) && !$static_page): ?>
     <div id="page">
       <div id="page-title">
         <?php print render($title_prefix); ?>

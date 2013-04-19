@@ -8,24 +8,12 @@
   });
 
   // MathJax
-  $.getScript("https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?delayStartupUntil=configured", function() {
-  
-    MathJax.Hub.Config({
-      config: ["MMLorHTML.js"],
-      jax: ["input/TeX","output/HTML-CSS","output/NativeMML"],
-      extensions: ["tex2jax.js","MathMenu.js"],
-      TeX: {
-        extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
-      },
-      messageStyle: "none",
-      showProcessingMessages: false,
-      tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] },
-      // use \$ to represent a literral dollar sign
-      processEscapes: true,
-    });
-
-    MathJax.Hub.Configured();
-  });
+  if ("https:" == document.location.protocol) {
+    mjsrc = "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js";
+  } else {
+    mjsrc = "http://cdn.mathjax.org/mathjax/latest/MathJax.js";
+  }
+  $.getScript(mjsrc);
 
   // Google analysis
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

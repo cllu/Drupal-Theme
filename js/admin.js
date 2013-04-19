@@ -128,7 +128,7 @@
             enableFormAutoSave();
 
             // dragger
-            $('#dragger').on('mousedown', function(e) {
+            $('#dragger').bind('mousedown', function(e) {
                 var $dragable = $(this).parent(),
                     startWidth = $dragable.width(),
                     pX = e.pageX;
