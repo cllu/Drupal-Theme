@@ -39,6 +39,8 @@ def minify_user():
 
     shutil.copy('packed.css', assets_dir)
     shutil.copy('packed.js', assets_dir)
+    os.remove('packed.css')
+    os.remove('packed.js')
     shutil.copy('favicon.ico', assets_dir)
 
 if __name__ == '__main__':
