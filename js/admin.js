@@ -133,11 +133,11 @@
                     startWidth = $dragable.width(),
                     pX = e.pageX;
                 
-                $(document).on('mouseup', function(e) {
-                    $(document).off('mouseup').off('mousemove');
+                $(document).bind('mouseup', function(e) {
+                    $(document).unbind('mouseup').unbind('mousemove');
                 });
                 
-                $(document).on('mousemove', function(me) {
+                $(document).bind('mousemove', function(me) {
                     var mx = (me.pageX - pX);
                     $dragable.css({
                         width: startWidth - mx
