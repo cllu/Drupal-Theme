@@ -49,6 +49,8 @@
 <head profile="<?php print $grddl_profile; ?>">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title><?php print $head_title; ?></title>
+  <meta name="description" content="Personal website of Chunliang Lu.">
+  <meta name="viewport" content="width=device-width">
 
   <link rel="shortcut icon" href="/assets/favicon.ico">
 
@@ -59,7 +61,6 @@
   <?php print $scripts;?>
   <?php print $styles;?>
   <?php endif; ?>
-
 </head>
 
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>

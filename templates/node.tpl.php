@@ -83,36 +83,38 @@
  * @see template_process()
  */
 ?>
-<article class="node node-<?php print $node->nid; ?> <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<div class="node <?php print $node->type; if ($node->status == 0) print " unpublished";?>"> 
 
-    <header class="node-title">
-      <?php print render($title_prefix); ?>
-      <?php if ($title): ?>
-        <h1 class="title"><?php print $title; ?>
-        <?php if (isset($node) && property_exists($node, 'private') && ($node->private)): ?><span><img src="/sites/all/themes/mei/images/private.gif"></span><?php endif; ?>
-        </h1> 
-      <?php endif; ?>
-      <?php print render($title_suffix); ?>
+  <?php if ($node->type == 'blog'): ?>
+  <div class="node-meta">
+    Posted on <?php print date('F j, Y', $created); ?>
+  </div>
+  <?php endif; ?>
 
-      <?php if ($display_submitted): ?>
-        <p class="submitted">
-          <?php print $user_picture; ?>
-          <?php print $submitted; ?>
-        </p>
-      <?php endif; ?>
-    </header>
+  <div class="node-title">
+    <?php if ($title): ?>
+      <h1 class="title"><?php print $title; ?></h1> 
+    <?php endif; ?>
+  </div>
 
   <div class="node-content">
   <?php
-    // We hide the comments and links now so that we can render them later.
-    hide($content['comments']);
-    hide($content['links']);
-    print render($content);
-  ?>
-
-  <?php print render($content['links']); ?>
-
-  <?php print render($content['comments']); ?>
+    $body = field_view_value('node', $node, 'body', $body[0]);
+    print $body['#markup'];
+  ?> 
   </div>
 
-</article><!-- /.node -->
+  <?php if ($node->type == 'blog'): ?>
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'chunliang';
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <?php endif; ?>
+
+</div><!-- /.node -->
