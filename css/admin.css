@@ -69,3 +69,14 @@ textarea {
 #node-edit-panel .field-name-body label{
   display: none;
 }
+
+#dragger {
+  width: 10px;
+  height: 100px;
+  background-color: #999;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -70px;
+  cursor: move;
+}

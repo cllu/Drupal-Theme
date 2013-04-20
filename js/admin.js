@@ -97,7 +97,7 @@
     window.openEditPanel = openEditPanel;
 
     $(document).ready(function() {
-        $("a.edit-node").click(function() {
+        $("a#edit-node").click(function() {
           if ($("#node-edit-panel").length) {
             // if we have opened edit form, just reopen it
             openEditPanel();
