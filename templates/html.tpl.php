@@ -42,20 +42,17 @@
  *
  * @ingroup themeable
  */
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
-  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language; ?>" version="XHTML+RDFa 1.0" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>>
-
-<head profile="<?php print $grddl_profile; ?>">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+?><!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+  <meta charset="utf-8">
   <title><?php print $head_title; ?></title>
   <meta name="description" content="Personal website of Chunliang Lu.">
   <meta name="viewport" content="width=device-width">
 
   <link rel="shortcut icon" href="/assets/favicon.ico">
-
-  <link href="/assets/packed.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css" />
+  <link rel="stylesheet" href="/assets/packed.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/styles/default.min.css">
 
   <?php if ($is_admin && !$static_page): ?>
   <?php print $scripts;?>
@@ -101,5 +98,4 @@
   </script>
 
 </body>
-
 </html>
