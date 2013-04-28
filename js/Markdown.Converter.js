@@ -275,9 +275,9 @@ else
             //
             // Strips ref definitions, ^+ {id}: definition details
             //
-            text = text.replace(/\{(.+)\}:[ ]*(\S+)/gm,
+            text = text.replace(/\((.+)\):[ ]*(\S+)/gm,
                 function (wholeMatch, m1, m2) {
-                    m1 = m1.toLowerCase();
+                    m1 = m1.toLowerCase().replace(/\W/g, '');
                     g_refs.push(m1);
 
                     //
@@ -606,7 +606,7 @@ else
             */
             text = text.replace(/(\[([^\[\]]+)\])()()()()()/g, writeAnchorTag);
 
-            text = text.replace(/\{(.*)\}/g, writeRefTag);
+            text = text.replace(/\((.*)\)/g, writeRefTag);
 
             return text;
         }
@@ -669,7 +669,7 @@ else
             found = false;
 
             for (var i = 0; i < refs.length; i++) {
-                ref = refs[i].toLowerCase();
+                ref = refs[i].toLowerCase().replace(/\W/g, '');
                 // trim leading/training spaces
                 ref = ref.replace(/^\s+|\s+$/g, '');
 
