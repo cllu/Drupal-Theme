@@ -4,7 +4,7 @@ if (typeof exports === "object" && typeof require === "function") // we're in a 
     Markdown = exports;
 else
     Markdown = {};
-    
+
 // The following text is included for historical reasons, but should
 // be taken with a pinch of salt; it's not all true anymore.
 
@@ -107,26 +107,26 @@ else
 
     Markdown.Converter = function () {
         var pluginHooks = this.hooks = new HookCollection();
-        
+
         // given a URL that was encountered by itself (without markup), should return the link text that's to be given to this link
         pluginHooks.addNoop("plainLinkText");
-        
+
         // called with the orignal text as given to makeHtml. The result of this plugin hook is the actual markdown source that will be cooked
         pluginHooks.addNoop("preConversion");
-        
+
         // called with the text once all normalizations have been completed (tabs to spaces, line endings, etc.), but before any conversions have
         pluginHooks.addNoop("postNormalization");
-        
+
         // Called with the text before / after creating block elements like code blocks and lists. Note that this is called recursively
         // with inner content, e.g. it's called with the full text, and then only with the content of a blockquote. The inner
         // call will receive outdented text.
         pluginHooks.addNoop("preBlockGamut");
         pluginHooks.addNoop("postBlockGamut");
-        
+
         // called with the text of a single block element before / after the span-level conversions (bold, code spans, etc.) have been made
         pluginHooks.addNoop("preSpanGamut");
         pluginHooks.addNoop("postSpanGamut");
-        
+
         // called with the final cooked HTML code. The result of this plugin hook is the actual output of makeHtml
         pluginHooks.addNoop("postConversion");
 
@@ -156,10 +156,11 @@ else
             // Don't do that.
             if (g_urls)
                 throw new Error("Recursive call to converter.makeHtml");
-        
+
             // Create the private state objects.
             g_urls = new SaveHash();
             g_titles = new SaveHash();
+            g_refs = new Array();
             g_html_blocks = [];
             g_list_level = 0;
 
@@ -191,7 +192,7 @@ else
             // match consecutive blank lines with /\n+/ instead of something
             // contorted like /[ \t]*\n+/ .
             text = text.replace(/^[ \t]+$/mg, "");
-            
+
             text = pluginHooks.postNormalization(text);
 
             // Turn block-level HTML blocks into hash entries
@@ -199,6 +200,8 @@ else
 
             // Strip link definitions, store in hashes.
             text = _StripLinkDefinitions(text);
+            // Strip reference definitions, store in hashes.
+            text = _StripRefDefinitions(text);
 
             text = _RunBlockGamut(text);
 
@@ -268,6 +271,23 @@ else
             return text;
         }
 
+        function _StripRefDefinitions(text) {
+            //
+            // Strips ref definitions, ^+ {id}: definition details
+            //
+            text = text.replace(/\{(.+)\}:[ ]*(\S+)/gm,
+                function (wholeMatch, m1, m2) {
+                    m1 = m1.toLowerCase();
+                    g_refs.push(m1);
+
+                    //
+                    return '<a name="ref-' + m1 + '"></a>' + m2;
+                }
+            );
+
+            return text;
+        }
+
         function _HashHTMLBlocks(text) {
 
             // Hashify HTML blocks:
@@ -330,7 +350,7 @@ else
             text = text.replace(/^(<(p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|script|noscript|form|fieldset|iframe|math)\b[^\r]*?.*<\/\2>[ \t]*(?=\n+)\n)/gm, hashElement);
 
             // Special case just for <hr />. It was easier to make a special case than
-            // to make the other regex more complicated.  
+            // to make the other regex more complicated.
 
             /*
             text = text.replace(/
@@ -403,7 +423,7 @@ else
 
             return blockText;
         }
-        
+
         var blockGamutHookCallback = function (t) { return _RunBlockGamut(t); }
 
         function _RunBlockGamut(text, doNotUnhash) {
@@ -411,9 +431,9 @@ else
             // These are all the transformations that form block-level
             // tags like paragraphs, headers, and list items.
             //
-            
+
             text = pluginHooks.preBlockGamut(text, blockGamutHookCallback);
-            
+
             text = _DoHeaders(text);
 
             // Do Horizontal Rules:
@@ -425,7 +445,7 @@ else
             text = _DoLists(text);
             text = _DoCodeBlocks(text);
             text = _DoBlockQuotes(text);
-            
+
             text = pluginHooks.postBlockGamut(text, blockGamutHookCallback);
 
             // We already ran _HashHTMLBlocks() before, in Markdown(), but that
@@ -445,7 +465,7 @@ else
             //
 
             text = pluginHooks.preSpanGamut(text);
-            
+
             text = _DoCodeSpans(text);
             text = _EscapeSpecialCharsWithinTagAttributes(text);
             text = _EncodeBackslashEscapes(text);
@@ -459,15 +479,15 @@ else
             // Must come after _DoAnchors(), because you can use < and >
             // delimiters in inline links like [this](<url>).
             text = _DoAutoLinks(text);
-            
+
             text = text.replace(/~P/g, "://"); // put in place to prevent autolinking; reset now
-            
+
             text = _EncodeAmpsAndAngles(text);
             text = _DoItalicsAndBold(text);
 
             // Do hard breaks:
             text = text.replace(/  +\n/g, " <br>\n");
-            
+
             text = pluginHooks.postSpanGamut(text);
 
             return text;
@@ -479,7 +499,7 @@ else
             // don't conflict with their use in Markdown for code, italics and strong.
             //
 
-            // Build a regex to find HTML tags and comments.  See Friedl's 
+            // Build a regex to find HTML tags and comments.  See Friedl's
             // "Mastering Regular Expressions", 2nd Ed., pp. 200-201.
 
             // SE: changed the comment part of the regex
@@ -553,7 +573,7 @@ else
                             |
                             [^()\s]
                         )*?
-                    )>?                
+                    )>?
                     [ \t]*
                     (                       // $5
                         (['"])              // quote char = $6
@@ -585,6 +605,8 @@ else
             /g, writeAnchorTag);
             */
             text = text.replace(/(\[([^\[\]]+)\])()()()()()/g, writeAnchorTag);
+
+            text = text.replace(/\{(.*)\}/g, writeRefTag);
 
             return text;
         }
@@ -631,6 +653,42 @@ else
 
             result += ">" + link_text + "</a>";
 
+            return result;
+        }
+
+        function writeRefTag(wholeMatch, m1) {
+            // {Friston2007} --> [1]
+            // {Friston2007; Friston2008} --> [1,2]
+
+            // not implemented.
+            // {Friston2007|Friston, 2007} --> (Friston, 2007)
+            // {Friston2007| Friston, 2007; Friston2008|Friston, 2008} --> (Frison, 2007; Frison, 2008)
+            var refs = m1.split(';');
+            result = '[';
+            // whether we have at least one match
+            found = false;
+
+            for (var i = 0; i < refs.length; i++) {
+                ref = refs[i].toLowerCase();
+                // trim leading/training spaces
+                ref = ref.replace(/^\s+|\s+$/g, '');
+
+                if (g_refs.indexOf(ref) != -1) {
+                    ref_num = g_refs.indexOf(ref) + 1;
+                    result += '<a href="#ref-' + ref + '">' + ref_num + '</a>';
+                    found = true;
+                } else {
+                    result += ref;
+                }
+                if (i != refs.length -1) {
+                    result += ',';
+                }
+            }
+            result += ']';
+
+            if (!found) {
+                return wholeMatch;
+            }
             return result;
         }
 
@@ -692,7 +750,7 @@ else
 
             return text;
         }
-        
+
         function attributeEncode(text) {
             // unconditionally replace angle brackets here -- what ends up in an attribute (e.g. alt or title)
             // never makes sense to have verbatim HTML in it (and the sanitizer would totally break it)
@@ -725,7 +783,7 @@ else
                     return whole_match;
                 }
             }
-            
+
             alt_text = escapeCharacters(attributeEncode(alt_text), "*_[]()");
             url = escapeCharacters(url, "*_");
             var result = "<img src=\"" + url + "\" alt=\"" + alt_text + "\"";
@@ -749,7 +807,7 @@ else
             // Setext-style headers:
             //  Header 1
             //  ========
-            //  
+            //
             //  Header 2
             //  --------
             //
@@ -908,7 +966,7 @@ else
             //
             // We changed this to behave identical to MarkdownSharp. This is the constructed RegEx,
             // with {MARKER} being one of \d+[.] or [*+-], depending on list_type:
-        
+
             /*
             list_str = list_str.replace(/
                 (^[ \t]*)                       // leading whitespace = $1
@@ -956,7 +1014,7 @@ else
         function _DoCodeBlocks(text) {
             //
             //  Process Markdown `<pre><code>` blocks.
-            //  
+            //
 
             /*
             text = text.replace(/
@@ -1004,26 +1062,26 @@ else
         function _DoCodeSpans(text) {
             //
             // * Backtick quotes are used for <code></code> spans.
-            // 
+            //
             // * You can use multiple backticks as the delimiters if you want to
             //   include literal backticks in the code span. So, this input:
-            //     
+            //
             //      Just type ``foo `bar` baz`` at the prompt.
-            //     
+            //
             //   Will translate to:
-            //     
+            //
             //      <p>Just type <code>foo `bar` baz</code> at the prompt.</p>
-            //     
+            //
             //   There's no arbitrary limit to the number of backticks you
             //   can use as delimters. If you need three consecutive backticks
             //   in your code, use four for delimiters, etc.
             //
             // * You can use spaces to get literal backticks at the edges:
-            //     
+            //
             //      ... type `` `bar` `` ...
-            //     
+            //
             //   Turns to:
-            //     
+            //
             //      ... type <code>`bar`</code> ...
             //
 
@@ -1156,7 +1214,7 @@ else
 
             var grafs = text.split(/\n{2,}/g);
             var grafsOut = [];
-            
+
             var markerRe = /~K(\d+)K/;
 
             //
@@ -1230,7 +1288,7 @@ else
             text = text.replace(/\\([`*_{}\[\]()>#+-.!])/g, escapeCharacters_callback);
             return text;
         }
-        
+
         function handleTrailingParens(wholeMatch, lookbehind, protocol, link) {
             if (lookbehind)
                 return wholeMatch;
@@ -1257,7 +1315,7 @@ else
                     return "";
                 });
             }
-            
+
             return "<" + protocol + link + ">" + tail;
         }
 
@@ -1273,7 +1331,7 @@ else
             text = text.replace(/(="|<)?\b(https?|ftp)(:\/\/[-A-Z0-9+&@#\/%?=~_|\[\]\(\)!:,\.;]*[-A-Z0-9+&@#\/%=~_|\[\])])(?=$|\W)/gi, handleTrailingParens);
 
             //  autolink anything like <http://example.com>
-            
+
             var replacer = function (wholematch, m1) { return "<a href=\"" + m1 + "\">" + pluginHooks.plainLinkText(m1) + "</a>"; }
             text = text.replace(/<((https?|ftp):[^'">\s]+)>/gi, replacer);
 
@@ -1355,7 +1413,7 @@ else
 
         var _problemUrlChars = /(?:["'*()[\]:]|~D)/g;
 
-        // hex-encodes some unusual "problem" chars in URLs to avoid URL detection problems 
+        // hex-encodes some unusual "problem" chars in URLs to avoid URL detection problems
         function encodeProblemUrlChars(url) {
             if (!url)
                 return "";
