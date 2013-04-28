@@ -1,4 +1,6 @@
 (function ($, window, document, undefined) {
+
+$(function() {
   // header div
   $('#header').css('opacity', '0.4');
   $('#header').mouseenter(function(){$(this).animate({opacity: 1}); }).mouseleave(function(){$(this).animate({opacity: 0.4}); });
@@ -27,5 +29,7 @@
   $.getScript("//cdnjs.cloudflare.com/ajax/libs/highlight.js/7.3/highlight.min.js", function() {
     $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
   });
+
+});
 
 })(jQuery,this, this.document);
