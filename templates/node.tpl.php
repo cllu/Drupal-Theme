@@ -83,7 +83,7 @@
  * @see template_process()
  */
 ?>
-<div class="node <?php print $node->type; if ($node->status == 0) print " unpublished";?>"> 
+<div class="node node-<?php print $node->type; if ($node->status == 0) print " unpublished";?>"> 
 
   <?php if ($node->type == 'blog'): ?>
   <div class="node-meta">

@@ -147,6 +147,7 @@ function mei_preprocess_html(&$variables, $hook) {
  */
 function mei_preprocess_page(&$variables, $hook) {
   $variables['static_page'] = variable_get('static_page', false);
+  $variables['multiple_nodes'] = in_array(current_path(), array('status'));
 }
 
 /**

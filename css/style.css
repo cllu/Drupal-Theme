@@ -437,6 +437,7 @@ blockquote cite {
   -moz-box-shadow: 0 0 10px rgba( 0, 0, 0, 0.1 );
   box-shadow: 0 0 10px rgba( 0, 0, 0, 0.1 );
   -webkit-border-radius: 3px;
+  margin-bottom: 6px;
 }
 #page-title,
 .node-title {
@@ -476,4 +477,8 @@ blockquote cite {
 
 .element-invisible {
   display:none;    
+}
+
+#quick-status textarea {
+  width: 100%;
 }

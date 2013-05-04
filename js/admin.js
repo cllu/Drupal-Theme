@@ -269,5 +269,17 @@
 
     enableFormAutoSave();
 
+    $('#quick-status').submit(function() {
+      $.ajax({
+          type: 'POST',
+          url: '/node/add/status/ajax',
+          data: $('#quick-status').serialize(),
+          success: function (data) {
+            alert(data);    
+          }
+        });        
+      return false;
+    });
+
 })(jQuery, this, this.document);
 
